@@ -43,8 +43,8 @@
  *  Override the media type and encoding of responses.
  */
 
-(function (#) {
-    #.active = 0;
+(function (_) {
+    _.active = 0;
     // the default settings of ajax
     var settings = {
         type: "GET",
@@ -52,13 +52,16 @@
             return new XMLHttpRequest;
         }
     };
-    #.ajax = function (options) {
-        var configs = #.extend(settings, options)
+    _.ajax = function (options) {
+        var configs = _.extend(settings, options)
+        console.log("configs: ", configs);
         var xhr = settings.xhr();
         xhr.onreadystatechange = function () {
-            if (xhr.readystate === 4) {
-                if ((xhr.status > 200 && xhr.status < 300) || xhr.status === 304) {
-                    console-log(this.response)
+            console.log(xhr.readyState);
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                    console.log(this.response)
+                    settings.success.call(this, this.response, xhr);
                 }
             }
         }
@@ -92,8 +95,11 @@
             }
         }
 
-        xhr.open(settings.type, settings.url);
+        xhr.open(configs.type, configs.url);
 
+        if (configs.responseType) {
+            xhr.responseType = configs.responseType;
+        }
         //XHR now provides a way for handling this problem:
         //request timeouts. Using the timeout attribute,
         //we can specify how many milliseconds to wait before the application does something else.
@@ -126,4 +132,4 @@
         }
         xhr.send();
     }
-}(extension))
+}(xe))
