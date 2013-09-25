@@ -3,9 +3,29 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>Test Ajax</title>
+        <style type="text/css" media="all">
+            .result {
+                color: red;
+            }
+        </style>
     </head>
     <body>
-        <h1>XMLHttpRequest Level 2</h1>
+        <div class="hd">
+            <h1>XMLHttpRequest Level 2</h1>
+        </div>
+        <div class="bd">
+            <section id="test-formdata">
+                <header>
+                    <h2>Test FormData</h2>
+                </header>
+                <label for="usrName">usrName</label>
+                <input type="text" name="usrName" id="usrName" value="user name" />
+                <label for="usrPwd">usrPwd</label>
+                <input type="text" name="usrPwd" id="usrPwd" value="user password" />
+                <a href="javascript:void(0)" class="-test-formdata">Login in</a>
+                <p class="-test-formdata-result result"></p>
+            </section>
+        </div>
         <a href="http://dev.opera.com/articles/view/xhr2/">Introduction to XMLHttpRequest Level 2</a>
         <a href="http://www.nczonline.net/blog/2012/06/05/working-with-files-in-javascript-part-5-blobs/">Blobs</a>
         <script type="text/javascript" charset="utf-8" src="../static/js/util.js"></script>
