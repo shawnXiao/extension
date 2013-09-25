@@ -22,7 +22,7 @@ def hello():
 def testAjax():
     return render_template("ajaxTest.html")
 
-@app.route("/api/testAjax/uploadFormData")
+@app.route("/api/testAjax/uploadFormData", methods=['POST', 'GET'])
 def uploadFormdata():
     if request.method == "POST":
         usrName = request.form['usrName']
@@ -32,7 +32,7 @@ def uploadFormdata():
         else:
             return "Sorry"
 
-@app.route("/api/testAjax/uploadFile")
+@app.route("/api/testAjax/uploadFile", methods=['POST', 'GET'])
 def uploadFile():
     if request.method == "POST":
         file = request.files['file']
@@ -51,8 +51,10 @@ def replaceDestFiles(src, dest):
             dest_file = os.path.join(dest_dir, file_)
             if os.path.exists(dest_file):
                 os.remove(dest_file)
-            shutil.move(src_file, dest_dir)
+            shutil.copy(src_file, dest_dir)
 
 if __name__ == "__main__":
-    replaceDestFiles("../../src/", "./static/js/test_case/src/")
+    print os.listdir("../../src")
+    replaceDestFiles("../../src/", "./static/js/src/")
+    print os.listdir("./static/js/src/")
     app.run()
