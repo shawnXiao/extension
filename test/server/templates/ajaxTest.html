@@ -14,20 +14,28 @@
             <h1>XMLHttpRequest Level 2</h1>
         </div>
         <div class="bd">
+            <section id="test-blob">
+                <header>
+                    <h2>Test ResponseType</h2>
+                </header>
+            </section>
             <section id="test-formdata">
                 <header>
                     <h2>Test FormData</h2>
                 </header>
                 <label for="usrName">usrName</label>
-                <input type="text" name="usrName" id="usrName" value="user name" />
+                <input type="text" name="usrName" id="usrName" placeholder="user name" />
                 <label for="usrPwd">usrPwd</label>
-                <input type="text" name="usrPwd" id="usrPwd" value="user password" />
+                <input type="text" name="usrPwd" id="usrPwd" placeholder="user password" />
                 <a href="javascript:void(0)" class="-test-formdata">Login in</a>
                 <p class="-test-formdata-result result"></p>
             </section>
             <section id="test-uploaFile">
+                <header>
+                    <h2>Test Progress Handle</h2>
+                </header>
                 <label for="uploadFile">uploadFile</label>
-                <progress min="0" max="100" value="0">0% complate</progress>
+                <progress min="0" max="100" value="0" id="progressBar">0% complate</progress>
                 <input type="file" name="uploadFile" id="uploadFile"/>
             </section>
         </div>

@@ -48,6 +48,8 @@
     // the default settings of ajax
     _.ajaxSettings = {
         type: "GET",
+        context: null,
+        timeout: 3000,
         xhr: function () {
             return new XMLHttpRequest;
         }
@@ -64,7 +66,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-                    configs.success.call(this, xhr.response)
+                    configs.success.call(configs.context, xhr.response)
                 }
             }
         }
@@ -104,7 +106,8 @@
         //request timeouts. Using the timeout attribute,
         //we can specify how many milliseconds to wait before the application does something else.
         //In the example that follows, we've set a three second (3000 millisecond) timeout:
-        xhr.timeout = 3000;
+
+        xhr.timeout = configs.timeout;
 
         /*
          *Enforceing a response MIME type

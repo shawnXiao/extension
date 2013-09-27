@@ -6,9 +6,11 @@
             console.log("data: ", data);
             var img = document.createElement("img");
             img.src = window.URL.createObjectURL(data);
-            document.body.appendChild(img);
+            var testBlobSection = document.getElementById("test-blob");
+            testBlobSection.appendChild(img);
         }
     });
+
     var testFormDataBtn = document.querySelector(".-test-formdata");
     testFormDataBtn.addEventListener("click", function (e) {
         var userName = document.getElementById("usrName").value;
@@ -25,31 +27,33 @@
                 resultElem.innerHTML = data;
             }
         });
+    });
 
-        var fileUploadBtn = document.getElementById("#uploadFile");
-        fileUploadBtn.addEventListener("change", function (e) {
-            var files = this.files;
-            var fileList = {};
-            var i = 0, file;
-            for (;file = files[i]; i ++) {
-                fileList[file.name] = file;
-            }
-            _.ajax({
-                type: "POST",
-                url: "/api/testAjax/uploadFile",
-                dataToSend: fileList,
-                upload: {
-                    onprogress: function (e) {
-                        if (e.lengthComputable) {
-                            progressBar.value = (e.loaded / e.total) / 100;
-                            progressBar.textContent = progressBar.value;
-                        }
+    var fileUploadBtn = document.getElementById("uploadFile");
+    fileUploadBtn.addEventListener("change", function (e) {
+        var files = this.files;
+        var fileList = {};
+        var i = 0, file;
+        for (;file = files[i]; i ++) {
+            fileList["file"] = file;
+        }
+        _.ajax({
+            type: "POST",
+            url: "/api/testAjax/uploadFile",
+            timeout: 5000000,
+            dataToSend: fileList,
+            upload: {
+                progress: function (e) {
+                    if (e.lengthComputable) {
+                        var progressBar = document.getElementById("progressBar")
+                        progressBar.value = (e.loaded / e.total) * 100;
+                        progressBar.textContent = progressBar.value;
                     }
-                },
-                success: function (data) {
-
                 }
-            });
-        })
+            },
+            success: function (data) {
+                console.log("success");
+            }
+        });
     })
 }(xe))
