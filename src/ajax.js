@@ -43,22 +43,30 @@
  *  Override the media type and encoding of responses.
  */
 
-(function (#) {
-    #.active = 0;
+(function (_) {
+    _.active = 0;
     // the default settings of ajax
-    var settings = {
+    _.ajaxSettings = {
         type: "GET",
+        context: null,
+        timeout: 3000,
         xhr: function () {
             return new XMLHttpRequest;
         }
     };
-    #.ajax = function (options) {
-        var configs = #.extend(settings, options)
-        var xhr = settings.xhr();
+    _.ajax = function (options) {
+        var configs = _.extend({}, options || {})
+        var key;
+        for (key in _.ajaxSettings) {
+            if (!!!configs[key]) {
+                configs[key] = _.ajaxSettings[key];
+            }
+        }
+        var xhr = configs.xhr();
         xhr.onreadystatechange = function () {
-            if (xhr.readystate === 4) {
-                if ((xhr.status > 200 && xhr.status < 300) || xhr.status === 304) {
-                    console-log(this.response)
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                    configs.success.call(configs.context, xhr.response)
                 }
             }
         }
@@ -72,33 +80,34 @@
          *    Returns the associated XMLHttpRequestUpload object.
          *    It can be used to gather transmission information when data is transferred to a server.
          */
-        if (settings.upload) {
+        if (configs.upload) {
             var uploadHandler;
-            for (uploadHandler in settings.upload) {
+            for (uploadHandler in configs.upload) {
                 //addEventListener() registers the specified listener on the EventTarget it's called on.
                 //The event target may be an Element in a document,
                 //the Document itself, a Window, or any other object that supports events (such as XMLHttpRequest).
-                xhr.upload.addEventListener(uploadHandler, settings.upload[uploadHandler], false);
+                xhr.upload.addEventListener(uploadHandler, configs.upload[uploadHandler], false);
             }
         }
 
         //Progress events exist for both download and upload transfers.
         //The download events are fired on the XMLHttpRequest object itself,
         //as shown in the above sample. The upload events are fired on the XMLHttpRequest.upload object
-        if (settings.download) {
+        if (configs.download) {
             var downloadHandler;
-            for (downloadHandler in settings.download) {
-                xhr.addEventListener(downloadHandler, settings.download[downloadHandler], false);
+            for (downloadHandler in configs.download) {
+                xhr.addEventListener(downloadHandler, configs.download[downloadHandler], false);
             }
         }
 
-        xhr.open(settings.type, settings.url);
+        xhr.open(configs.type, configs.url);
 
         //XHR now provides a way for handling this problem:
         //request timeouts. Using the timeout attribute,
         //we can specify how many milliseconds to wait before the application does something else.
         //In the example that follows, we've set a three second (3000 millisecond) timeout:
-        xhr.timeout = 3000;
+
+        xhr.timeout = configs.timeout;
 
         /*
          *Enforceing a response MIME type
@@ -107,6 +116,9 @@
          *  which will cause the value of xhr.responseXML to be null.
          *  To ensure that the browser handles such responses in the way we’d like, we can use the overrideMimeType() method.
          */
+        if (configs.responseType) {
+            xhr.responseType = configs.responseType;
+        }
 
         /*
          *Now, we can use the FormData object, and its ordered, key-value pairs. The syntax offers three benefits:
@@ -116,14 +128,15 @@
          */
         //FormData objects provide a way to easily construct a set of key/value pairs representing form fields and their values,
         //which can then be easily sent using the XMLHttpRequest send() method
-        if (settings.type === "POST" && settings.dataToSend) {
+        if (configs.type === "POST" && configs.dataToSend) {
             var dataToSend = new FormData();
             var dataProperty;
-            for(dataProperty in settings.dataToSend) {
-                dataToSend.append(dataProperty, settins.dataToSend[dataProperty]);
+            for(dataProperty in configs.dataToSend) {
+                dataToSend.append(dataProperty, configs.dataToSend[dataProperty]);
             }
             xhr.send(dataToSend);
+        } else {
+            xhr.send();
         }
-        xhr.send();
     }
-}(extension))
+}(xe))

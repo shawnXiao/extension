@@ -30,6 +30,19 @@
                 <a href="javascript:void(0)" class="-test-formdata">Login in</a>
                 <p class="-test-formdata-result result"></p>
             </section>
+            <section id="test-upload-form">
+                <header>
+                    <h2>Test upload form</h2>
+                </header>
+                <form action="/api/testAjax/uploadFormData" method="POST" accept-charset="utf-8">
+                    <label for="usrName_form">usrName</label>
+                    <input type="text" name="usrName_form" id="usrName_form" placeholder="user name" />
+                    <label for="usrPwd_form">usrPwd</label>
+                    <input type="text" name="usrPwd_form" id="usrPwd_form" placeholder="user password" />
+                    <input type="submit" name="submit_form" id="submit_form" value="Login in" />
+                </form>
+                <p class="-test-formdata-result result"></p>
+            </section>
             <section id="test-uploaFile">
                 <header>
                     <h2>Test Progress Handle</h2>
@@ -39,10 +52,13 @@
                 <input type="file" name="uploadFile" id="uploadFile"/>
             </section>
         </div>
-        <a href="http://dev.opera.com/articles/view/xhr2/">Introduction to XMLHttpRequest Level 2</a>
-        <a href="http://www.nczonline.net/blog/2012/06/05/working-with-files-in-javascript-part-5-blobs/">Blobs</a>
+        <div class="ft">
+            <a href="http://dev.opera.com/articles/view/xhr2/">Introduction to XMLHttpRequest Level 2</a>
+            <a href="http://www.nczonline.net/blog/2012/06/05/working-with-files-in-javascript-part-5-blobs/">Blobs</a>
+        </div>
         <script type="text/javascript" charset="utf-8" src="../static/js/src/util.js"></script>
         <script type="text/javascript" charset="utf-8" src="../static/js/src/ajax.js"></script>
+        <script type="text/javascript" charset="utf-8" src="../static/js/src/file.js"></script>
         <script type="text/javascript" charset="utf-8" src="../static/js/test_case/ajax.js"></script>
     </body>
 </html>

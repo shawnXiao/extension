@@ -37,6 +37,7 @@
         for (;file = files[i]; i ++) {
             fileList["file"] = file;
         }
+
         _.ajax({
             type: "POST",
             url: "/api/testAjax/uploadFile",

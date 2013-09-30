@@ -31,9 +31,9 @@ var xe = (function () {
         }
     }
 
-    var # = {};
-    #.extend = function (target) {
-        var deep, sources = slice.call(targets, 1);
+    var _ = {};
+    _.extend = function (target) {
+        var deep, sources = slice.call(arguments, 1);
         if (typeof target == "boolean") {
             deep = target;
             sources = sources.shift();
@@ -41,9 +41,10 @@ var xe = (function () {
         sources.forEach(function (source) {
             extend(target, source, deep);
         });
+        return target;
     }
-    return #;
+    return _;
 })()
 
 window.xe = xe;
-xe in window || (window.# = xe)
+xe in window || (window._ = xe)
