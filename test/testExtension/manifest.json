@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "Test extension for extensionJS",
+    "version": "1.0.0.0",
+    "description": "This is a extension used for the sample of the extensionJS",
+    "icons": {
+        "16":"icon.jpeg",
+        "48":"icon.jpeg",
+        "128":"icon.jpeg"
+    },
+    "browser_action": {
+        "default_icon": {
+            "19": "icon.jpeg",
+            "38": "icon.jpeg"
+        },
+        "default_title": "extensionJS",
+        "default_popup":"popup.html"
+    },
+    "background": {
+        "persistent": false,
+        "page": "bg.html"
+    },
+    "permissions":["alarms","activeTab","bookmarks"]
+}

@@ -22,6 +22,10 @@ def hello():
 def testAjax():
     return render_template("ajaxTest.html")
 
+@app.route("/api/testLog")
+def testLog():
+    return render_template("logTest.html")
+
 @app.route("/api/testAjax/uploadFormData", methods=['POST', 'GET'])
 def uploadFormdata():
     if request.method == "POST":
