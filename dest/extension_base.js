@@ -305,12 +305,4 @@ xe in window || (window._ = xe)
         var arrayLikeArgs = slice.call(arguments, 0);
         console.log.apply(console, arrayLikeArgs);
     }
-    var method;
-    for (method in console) {
-        if (_.isFunction(console[method])) {
-            _.log(method);
-            _.log["log_" + method] = console[method];
-            _.log["log_" + method].bind(console);
-        }
-    }
 }(xe))

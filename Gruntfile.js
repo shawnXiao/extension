@@ -8,7 +8,7 @@ module.exports = function(grunt) {
              dest:"dest/<%= pkg.name %>_base.js"
         },
         chrome: {
-             src: ["src/utils/util.js","src/utils/*.js", "src/chrome/*.js"],
+             src: ["src/utils/util.js","src/utils/*.js", "src/chrome/init.js", "src/chrome/permission.js","src/chrome/*.js"],
              dest:"dest/<%= pkg.name %>_chrome.js"
         }
     },

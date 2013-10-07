@@ -16,9 +16,13 @@
         "default_title": "extensionJS",
         "default_popup":"popup.html"
     },
+    "content_scripts":[{
+        "matches":["http://*/*"],
+        "js":["js/content.js"]
+    }],
     "background": {
         "persistent": false,
         "page": "bg.html"
     },
-    "permissions":["alarms","activeTab","bookmarks"]
+    "permissions":["management","alarms","activeTab","bookmarks"]
 }
